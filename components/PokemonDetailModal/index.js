@@ -1,11 +1,22 @@
-import styled from 'styled-components';
-import { Modal } from '../Modal';
-import { PokemonSprite } from './style';
+import { ModalInfo, PokemonSprite, Types, Stats, Name } from './style';
 
 export const PokemonDetailModal = ({ pokemon, onClose }) =>
   !!pokemon?.name && (
-    <Modal onClose={onClose}>
+    <ModalInfo onClose={onClose}>
       <PokemonSprite src={pokemon.sprites.front_default} />
-      {pokemon.name}
-    </Modal>
+      <Stats>
+        {pokemon.stats.map(({ base_stat, stat }) => (
+          <li>
+            {stat.name}:{base_stat}
+          </li>
+        ))}
+      </Stats>
+      <Name>{pokemon.name}</Name>
+      <Types>
+        <strong>Types: </strong>
+        {pokemon.types.map(({ type }) => (
+          <li>{type?.name}</li>
+        ))}
+      </Types>
+    </ModalInfo>
   );
